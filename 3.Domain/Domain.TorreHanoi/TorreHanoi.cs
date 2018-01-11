@@ -57,7 +57,7 @@ namespace Domain.TorreHanoi
 
         private void Resolver(int numeroDiscosRestante, Pino origem, Pino intermediario, Pino destino)
         {
-            if (numeroDiscosRestante <= 1)
+            if (numeroDiscosRestante == 0)
             {
                 return;
             }

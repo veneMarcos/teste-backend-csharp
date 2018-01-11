@@ -103,7 +103,7 @@ namespace Application.TorreHanoi.Implementation
             }
             try
             {
-                var torre = _domainService.ObterPor(new Guid());
+                var torre = _domainService.ObterPor(new Guid(id));
 
                 _designerService.Inicializar(_adpterTorreHanoi.DomainParaDesignerDto(torre));
 

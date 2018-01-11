@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net;
 using Application.TorreHanoi.Implementation;
 using Application.TorreHanoi.Interface;
@@ -24,7 +25,8 @@ namespace Tests.TorreHanoi.Application
             var mockLogger = new Mock<ILogger>();
             mockLogger.Setup(s => s.Logar(It.IsAny<string>(), It.IsAny<TipoLog>()));
 
-            var mockDesignerService = new Mock<IDesignerService>();
+            var mockDesignerService = new Mock<IDesignerService>();            
+            mockDesignerService.Setup(s => s.Desenhar()).Returns(new Bitmap(900, 600));
 
             var mockTorreHanoiDomainService = new Mock<ITorreHanoiDomainService>();
             mockTorreHanoiDomainService.Setup(s => s.Criar(It.IsAny<int>())).Returns(Guid.NewGuid);
@@ -79,7 +81,13 @@ namespace Tests.TorreHanoi.Application
         [TestCategory(CategoriaTeste)]
         public void ObterImagemProcessoPor_Deve_Retornar_Imagem()
         {
-            Assert.Fail();
+            var response = _service.ObterImagemProcessoPor(Guid.NewGuid().ToString());
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            Assert.IsNotNull(response.Imagem);
+            Assert.IsTrue(response.IsValid);
+            Assert.IsTrue(response.MensagensDeErro.Count == 0);
         }
     }
 }
